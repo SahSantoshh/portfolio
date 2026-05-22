@@ -1,11 +1,206 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ExperienceCard from "../components/ExperienceCard.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import TechBadge from "../components/TechBadge.astro";
+import RubyGem from "../components/RubyGem.astro";
+import {
+  site,
+  skillGroups,
+  experience,
+  education,
+  achievements,
+  focusAreas,
+  projects,
+} from "../data/site";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const recentExperience = experience.slice(0, 3);
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title={site.name} description={site.tagline}>
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-border/60">
+    <div
+      class="pointer-events-none absolute -right-16 top-8 hidden opacity-40 lg:block"
+      aria-hidden="true"
+    >
+      <RubyGem size={280} class="gem-glow" />
+    </div>
+    <div class="relative mx-auto max-w-5xl px-6 py-20 sm:py-28">
+      <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-ruby/25 bg-ruby/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-cream">
+        <RubyGem size={14} />
+        Ruby · Rails · PostgreSQL
+      </p>
+      <h1 class="font-serif max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+        {site.name}
+      </h1>
+      <p class="mt-4 text-xl font-semibold text-ruby sm:text-2xl">{site.title}</p>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{site.tagline}</p>
+
+      <div class="mt-8">
+        <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-muted">Primary stack</p>
+        <div class="flex flex-wrap gap-2">
+          {site.primaryStack.map((tech) => (
+            <TechBadge name={tech} size="md" />
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <a
+          href={site.resumeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center rounded-xl bg-ruby px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-accent-hover"
+        >
+          Download CV
+        </a>
+        <a
+          href="/projects"
+          class="inline-flex items-center rounded-xl border border-border bg-surface-raised px-5 py-2.5 text-sm font-semibold text-white transition hover:border-ruby/30"
+        >
+          View projects
+        </a>
+        <a
+          href={site.social.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center rounded-xl px-5 py-2.5 text-sm font-medium text-muted transition hover:text-ruby"
+        >
+          GitHub →
+        </a>
+      </div>
+      <p class="mt-8 text-sm text-muted">{site.location}</p>
+    </div>
+    <div class="rails-track mx-auto max-w-5xl px-6" aria-hidden="true"></div>
+  </section>
+
+  <!-- About -->
+  <section class="mx-auto max-w-5xl px-6 py-16">
+    <SectionHeading title="About" subtitle="A decade in the Ruby ecosystem — shipping production Rails apps." />
+    <p class="max-w-3xl text-base leading-relaxed text-muted">{site.summary}</p>
+  </section>
+
+  <!-- Focus -->
+  <section class="border-y border-border/60 bg-surface-raised/40">
+    <div class="mx-auto max-w-5xl px-6 py-16">
+      <SectionHeading title="Rails craft" subtitle="Where I spend most of my engineering time." />
+      <div class="grid gap-4 sm:grid-cols-2">
+        {
+          focusAreas.map(({ title, description, icon }) => (
+            <div class="rounded-2xl border border-border bg-surface-card p-6 transition hover:border-ruby/25">
+              <div class="mb-3">
+                <TechBadge name={icon} size="sm" />
+              </div>
+              <h3 class="font-semibold text-white">{title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="border-t border-border/60 bg-surface-raised/30">
+    <div class="mx-auto max-w-5xl px-6 py-16">
+      <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 class="font-serif text-2xl font-semibold tracking-tight text-white sm:text-3xl">Side projects</h2>
+          <p class="mt-2 max-w-2xl text-muted">Rails backends, mobile clients — built outside day jobs.</p>
+          <div class="mt-4 h-px w-12 bg-gradient-to-r from-ruby to-transparent" aria-hidden="true"></div>
+        </div>
+        <a href="/projects" class="shrink-0 text-sm font-medium text-ruby transition hover:text-accent-hover">
+          View all projects →
+        </a>
+      </div>
+      {
+        projects
+          .filter((p) => p.featured)
+          .map((project) => (
+            <ProjectCard
+              name={project.name}
+              tagline={project.tagline}
+              description={project.description}
+              url={project.url}
+              icon={project.icon}
+              playStoreUrl={project.playStoreUrl}
+              playStoreIcon={project.playStoreIcon}
+              stack={project.stack}
+              featured
+            />
+          ))
+      }
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="mx-auto max-w-5xl px-6 py-16">
+    <SectionHeading title="Toolbox" subtitle="Technologies I reach for regularly." />
+    <div class="grid gap-8 sm:grid-cols-2">
+      {
+        skillGroups.map(({ title, items }) => (
+          <div>
+            <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-ruby/80">{title}</h3>
+            <div class="flex flex-wrap gap-2">
+              {items.map((skill) => (
+                <TechBadge name={skill} size="sm" />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Recent experience -->
+  <section class="border-t border-border/60 bg-surface-raised/30">
+    <div class="mx-auto max-w-5xl px-6 py-16">
+      <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 class="font-serif text-2xl font-semibold tracking-tight text-white sm:text-3xl">Experience</h2>
+          <p class="mt-2 max-w-2xl text-muted">Ten years across product companies and research labs.</p>
+          <div class="mt-4 h-px w-12 bg-gradient-to-r from-ruby to-transparent" aria-hidden="true"></div>
+        </div>
+        <a href="/experience" class="shrink-0 text-sm font-medium text-ruby transition hover:text-accent-hover">
+          Full timeline →
+        </a>
+      </div>
+      <div class="space-y-4">
+        {
+          recentExperience.map((job, i) => (
+            <ExperienceCard {...job} featured={i === 0} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Education & awards -->
+  <section class="mx-auto max-w-5xl px-6 py-16">
+    <div class="grid gap-10 sm:grid-cols-2">
+      <div>
+        <SectionHeading title="Education" />
+        <div class="rounded-2xl border border-border bg-surface-card p-6">
+          <h3 class="font-semibold text-white">{education.degree}</h3>
+          <p class="mt-1 text-sm text-muted">{education.school}</p>
+          <p class="mt-2 text-sm text-ruby">{education.period}</p>
+        </div>
+      </div>
+      <div>
+        <SectionHeading title="Achievements" />
+        <ul class="space-y-3">
+          {
+            achievements.map((item) => (
+              <li class="flex gap-3 rounded-2xl border border-border bg-surface-card p-4 text-sm leading-relaxed text-muted">
+                <RubyGem size={16} class="mt-0.5 shrink-0" />
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import { getTechIcon, techIconUrl } from "../lib/tech-icons";
+
+interface Props {
+  name: string;
+  size?: "sm" | "md" | "lg";
+  showLabel?: boolean;
+}
+
+const { name, size = "sm", showLabel = true } = Astro.props;
+
+const iconUrl = techIconUrl(name);
+const entry = getTechIcon(name);
+
+const sizeClasses = {
+  sm: { icon: "h-4 w-4", text: "text-xs", pad: "px-2.5 py-1.5 gap-1.5" },
+  md: { icon: "h-5 w-5", text: "text-sm", pad: "px-3 py-2 gap-2" },
+  lg: { icon: "h-6 w-6", text: "text-sm", pad: "px-3.5 py-2.5 gap-2.5" },
+}[size];
+---
+
+<span
+  class:list={[
+    "inline-flex items-center rounded-lg border border-border/80 bg-surface-raised/80 font-medium text-white/90",
+    sizeClasses.pad,
+    sizeClasses.text,
+  ]}
+  title={name}
+>
+  {
+    iconUrl ? (
+      <img
+        src={iconUrl}
+        alt=""
+        width={size === "lg" ? 24 : size === "md" ? 20 : 16}
+        height={size === "lg" ? 24 : size === "md" ? 20 : 16}
+        class:list={[sizeClasses.icon, "shrink-0 object-contain"]}
+        loading="lazy"
+      />
+    ) : (
+      <span
+        class:list={[
+          sizeClasses.icon,
+          "flex shrink-0 items-center justify-center rounded bg-ruby/20 text-[0.6rem] font-bold uppercase text-ruby",
+        ]}
+        aria-hidden="true"
+      >
+        {name.slice(0, 2)}
+      </span>
+    )
+  }
+  {showLabel && <span>{name}</span>}
+</span>

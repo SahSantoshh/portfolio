@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects } from "../data/site";
+---
+
+<BaseLayout
+  title="Projects"
+  description="Rails side projects by Santosh Prasad Sah — including Kharcha Diary, built with Ruby on Rails and Flutter."
+>
+  <section class="mx-auto max-w-5xl px-6 py-16">
+    <SectionHeading
+      title="Projects"
+      subtitle="Side projects where I ship full products — Rails backends, APIs, mobile clients, and deployment."
+    />
+
+    <div class="space-y-6">
+      {
+        projects.map((project) => (
+          <div>
+            <ProjectCard
+              name={project.name}
+              tagline={project.tagline}
+              description={project.description}
+              url={project.url}
+              icon={project.icon}
+              playStoreUrl={project.playStoreUrl}
+              playStoreIcon={project.playStoreIcon}
+              stack={project.stack}
+            />
+            {project.highlights && (
+              <ul class="mt-4 grid gap-2 sm:grid-cols-2">
+                {project.highlights.map((item) => (
+                  <li class="flex gap-2.5 rounded-xl border border-border/60 bg-surface-raised/40 px-4 py-3 text-sm text-muted">
+                    <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-ruby/70" aria-hidden="true"></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

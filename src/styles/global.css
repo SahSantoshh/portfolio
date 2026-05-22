@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --color-surface: #0c090a;
+  --color-surface-raised: #141018;
+  --color-surface-card: #1a1218;
+  --color-border: #2d1f28;
+  --color-muted: #9a8a94;
+  --color-accent: #f06565;
+  --color-accent-hover: #ff7b7b;
+  --color-ruby: #cc342d;
+  --color-rails: #d30001;
+  --color-cream: #f5e6e8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-surface);
+  color: #f8f0f2;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(204, 52, 45, 0.15), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(211, 0, 1, 0.08), transparent);
+  background-attachment: fixed;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-ruby) 40%, transparent);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.gem-glow {
+  filter: drop-shadow(0 0 24px rgba(204, 52, 45, 0.35));
+}
+
+.rails-track {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-ruby) 25%, transparent) 20%,
+    color-mix(in srgb, var(--color-ruby) 25%, transparent) 80%,
+    transparent
+  );
+  height: 2px;
+}

@@ -1,0 +1,38 @@
+---
+interface Props {
+  class?: string;
+  size?: number;
+}
+
+const { class: className, size = 32 } = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 64 64"
+  width={size}
+  height={size}
+  class:list={className}
+  aria-hidden="true"
+>
+  <defs>
+    <linearGradient id="ruby-gem-top" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6b6b"></stop>
+      <stop offset="100%" stop-color="#cc342d"></stop>
+    </linearGradient>
+    <linearGradient id="ruby-gem-left" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#cc342d"></stop>
+      <stop offset="100%" stop-color="#8b1e1e"></stop>
+    </linearGradient>
+    <linearGradient id="ruby-gem-right" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a82828"></stop>
+      <stop offset="100%" stop-color="#6b1515"></stop>
+    </linearGradient>
+  </defs>
+  <polygon points="32,4 56,24 32,60 8,24" fill="url(#ruby-gem-left)"></polygon>
+  <polygon points="32,4 56,24 32,28" fill="url(#ruby-gem-top)"></polygon>
+  <polygon points="32,4 8,24 32,28" fill="#e05252" opacity="0.85"></polygon>
+  <polygon points="32,28 56,24 32,60" fill="url(#ruby-gem-right)"></polygon>
+  <polygon points="32,28 8,24 32,60" fill="#7a1818"></polygon>
+  <polygon points="32,28 44,26 32,44" fill="#ffffff" opacity="0.12"></polygon>
+</svg>

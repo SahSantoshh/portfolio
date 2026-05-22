@@ -1,0 +1,47 @@
+---
+import { site } from "../data/site";
+import TechBadge from "./TechBadge.astro";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-border/60 bg-surface-raised/50">
+  <div class="mx-auto max-w-5xl px-6 py-8">
+    <div class="mb-6 flex flex-wrap justify-center gap-2">
+      <TechBadge name="Ruby" size="sm" />
+      <TechBadge name="Ruby on Rails" size="sm" />
+      <TechBadge name="PostgreSQL" size="sm" />
+    </div>
+    <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+      <p class="text-sm text-muted">
+        © {year} {site.name}. Rails developer, shipped with care.
+      </p>
+      <div class="flex items-center gap-4 text-sm">
+        <a
+          href={site.social.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-muted transition hover:text-ruby"
+        >
+          GitHub
+        </a>
+        <a
+          href={site.social.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-muted transition hover:text-ruby"
+        >
+          LinkedIn
+        </a>
+        <a
+          href={site.social.medium}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-muted transition hover:text-ruby"
+        >
+          Medium
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

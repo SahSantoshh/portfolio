@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { site } from "../data/site";
+
+const links = [
+  {
+    label: "Email",
+    value: site.email,
+    href: `mailto:${site.email}`,
+    description: "Best for project inquiries and collaborations.",
+  },
+  {
+    label: "Phone",
+    value: site.phone,
+    href: `tel:${site.phone.replace(/\s/g, "")}`,
+    description: "Available during Nepal Standard Time business hours.",
+  },
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/sahsantoshh",
+    href: site.social.linkedin,
+    description: "Connect for professional networking.",
+  },
+  {
+    label: "GitHub",
+    value: "github.com/SahSantoshh",
+    href: site.social.github,
+    description: "Open source and side projects.",
+  },
+  {
+    label: "Medium",
+    value: "medium.com/@sahsantoshh",
+    href: site.social.medium,
+    description: "Technical writing and learnings.",
+  },
+];
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Santosh Prasad Sah — Senior Ruby on Rails engineer based in Kathmandu, Nepal."
+>
+  <section class="mx-auto max-w-5xl px-6 py-16">
+    <SectionHeading
+      title="Contact"
+      subtitle="Open to senior engineering roles, consulting, and interesting product work."
+    />
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      {
+        links.map(({ label, value, href, description }) => (
+          <a
+            href={href}
+            target={href.startsWith("http") ? "_blank" : undefined}
+            rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+            class="group rounded-2xl border border-border bg-surface-card p-6 transition hover:border-ruby/30 hover:bg-surface-raised"
+          >
+            <p class="text-xs font-semibold uppercase tracking-wider text-muted">{label}</p>
+            <p class="mt-2 font-medium text-white transition group-hover:text-accent">{value}</p>
+            <p class="mt-2 text-sm text-muted">{description}</p>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 rounded-2xl border border-border bg-surface-raised/60 p-8 text-center">
+      <h3 class="text-lg font-semibold text-white">Prefer a resume?</h3>
+      <p class="mt-2 text-sm text-muted">Download my full CV with detailed experience and skills.</p>
+      <a
+        href={site.resumeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-6 inline-flex items-center rounded-xl bg-ruby px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-accent-hover"
+      >
+        Download CV (PDF)
+      </a>
+    </div>
+
+    <p class="mt-8 text-center text-sm text-muted">{site.location}</p>
+  </section>
+</BaseLayout>
