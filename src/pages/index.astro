@@ -5,6 +5,7 @@ import ExperienceCard from "../components/ExperienceCard.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import TechBadge from "../components/TechBadge.astro";
 import RubyGem from "../components/RubyGem.astro";
+import Reveal from "../components/Reveal.astro";
 import {
   site,
   skillGroups,
@@ -25,20 +26,20 @@ const recentExperience = experience.slice(0, 3);
       class="pointer-events-none absolute -right-16 top-8 hidden opacity-40 lg:block"
       aria-hidden="true"
     >
-      <RubyGem size={280} class="gem-glow" />
+      <RubyGem size={280} class="gem-glow gem-float gem-pulse" />
     </div>
-    <div class="relative mx-auto max-w-5xl px-6 py-20 sm:py-28">
-      <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-ruby/25 bg-ruby/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-cream">
-        <RubyGem size={14} />
+    <div class="hero-stagger relative mx-auto max-w-5xl px-6 py-20 sm:py-28">
+      <p class="hero-item mb-5 inline-flex items-center gap-2 rounded-full border border-ruby/25 bg-ruby/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-cream">
+        <RubyGem size={14} class="gem-pulse" />
         Ruby · Rails · PostgreSQL
       </p>
-      <h1 class="font-serif max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+      <h1 class="hero-item font-serif max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
         {site.name}
       </h1>
-      <p class="mt-4 text-xl font-semibold text-ruby sm:text-2xl">{site.title}</p>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{site.tagline}</p>
+      <p class="hero-item mt-4 text-xl font-semibold text-ruby sm:text-2xl">{site.title}</p>
+      <p class="hero-item mt-6 max-w-2xl text-lg leading-relaxed text-muted">{site.tagline}</p>
 
-      <div class="mt-8">
+      <div class="hero-item mt-8">
         <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-muted">Primary stack</p>
         <div class="flex flex-wrap gap-2">
           {site.primaryStack.map((tech) => (
@@ -47,18 +48,18 @@ const recentExperience = experience.slice(0, 3);
         </div>
       </div>
 
-      <div class="mt-8 flex flex-wrap items-center gap-3">
+      <div class="hero-item mt-8 flex flex-wrap items-center gap-3">
         <a
           href={site.resumeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center rounded-xl bg-ruby px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-accent-hover"
+          class="btn-primary inline-flex items-center rounded-xl bg-ruby px-5 py-2.5 text-sm font-semibold text-white hover:bg-accent-hover"
         >
           Download CV
         </a>
         <a
           href="/projects"
-          class="inline-flex items-center rounded-xl border border-border bg-surface-raised px-5 py-2.5 text-sm font-semibold text-white transition hover:border-ruby/30"
+          class="btn-primary inline-flex items-center rounded-xl border border-border bg-surface-raised px-5 py-2.5 text-sm font-semibold text-white hover:border-ruby/30"
         >
           View projects
         </a>
@@ -66,36 +67,40 @@ const recentExperience = experience.slice(0, 3);
           href={site.social.github}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center rounded-xl px-5 py-2.5 text-sm font-medium text-muted transition hover:text-ruby"
+          class="link-arrow inline-flex items-center rounded-xl px-5 py-2.5 text-sm font-medium text-muted transition hover:text-ruby"
         >
-          GitHub →
+          GitHub <span aria-hidden="true">→</span>
         </a>
       </div>
-      <p class="mt-8 text-sm text-muted">{site.location}</p>
+      <p class="hero-item mt-8 text-sm text-muted">{site.location}</p>
     </div>
     <div class="rails-track mx-auto max-w-5xl px-6" aria-hidden="true"></div>
   </section>
 
   <!-- About -->
-  <section class="mx-auto max-w-5xl px-6 py-16">
+  <Reveal class="mx-auto max-w-5xl px-6 py-16">
     <SectionHeading title="About" subtitle="A decade in the Ruby ecosystem — shipping production Rails apps." />
     <p class="max-w-3xl text-base leading-relaxed text-muted">{site.summary}</p>
-  </section>
+  </Reveal>
 
   <!-- Focus -->
   <section class="border-y border-border/60 bg-surface-raised/40">
     <div class="mx-auto max-w-5xl px-6 py-16">
-      <SectionHeading title="Rails craft" subtitle="Where I spend most of my engineering time." />
+      <Reveal>
+        <SectionHeading title="Rails craft" subtitle="Where I spend most of my engineering time." />
+      </Reveal>
       <div class="grid gap-4 sm:grid-cols-2">
         {
-          focusAreas.map(({ title, description, icon }) => (
-            <div class="rounded-2xl border border-border bg-surface-card p-6 transition hover:border-ruby/25">
-              <div class="mb-3">
-                <TechBadge name={icon} size="sm" />
+          focusAreas.map(({ title, description, icon }, i) => (
+            <Reveal delay={i * 80}>
+              <div class="hover-lift rounded-2xl border border-border bg-surface-card p-6 hover:border-ruby/25">
+                <div class="mb-3">
+                  <TechBadge name={icon} size="sm" />
+                </div>
+                <h3 class="font-semibold text-white">{title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-muted">{description}</p>
               </div>
-              <h3 class="font-semibold text-white">{title}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-muted">{description}</p>
-            </div>
+            </Reveal>
           ))
         }
       </div>
@@ -105,72 +110,78 @@ const recentExperience = experience.slice(0, 3);
   <!-- Projects -->
   <section class="border-t border-border/60 bg-surface-raised/30">
     <div class="mx-auto max-w-5xl px-6 py-16">
-      <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <Reveal class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 class="font-serif text-2xl font-semibold tracking-tight text-white sm:text-3xl">Side projects</h2>
           <p class="mt-2 max-w-2xl text-muted">Rails backends, mobile clients — built outside day jobs.</p>
           <div class="mt-4 h-px w-12 bg-gradient-to-r from-ruby to-transparent" aria-hidden="true"></div>
         </div>
-        <a href="/projects" class="shrink-0 text-sm font-medium text-ruby transition hover:text-accent-hover">
-          View all projects →
+        <a href="/projects" class="link-arrow shrink-0 text-sm font-medium text-ruby transition hover:text-accent-hover">
+          View all projects <span aria-hidden="true">→</span>
         </a>
-      </div>
-      {
-        projects
-          .filter((p) => p.featured)
-          .map((project) => (
-            <ProjectCard
-              name={project.name}
-              tagline={project.tagline}
-              description={project.description}
-              url={project.url}
-              icon={project.icon}
-              playStoreUrl={project.playStoreUrl}
-              playStoreIcon={project.playStoreIcon}
-              stack={project.stack}
-              featured
-            />
-          ))
-      }
+      </Reveal>
+      <Reveal delay={100}>
+        {
+          projects
+            .filter((p) => p.featured)
+            .map((project) => (
+              <ProjectCard
+                name={project.name}
+                tagline={project.tagline}
+                description={project.description}
+                url={project.url}
+                icon={project.icon}
+                playStoreUrl={project.playStoreUrl}
+                playStoreIcon={project.playStoreIcon}
+                stack={project.stack}
+                featured
+              />
+            ))
+        }
+      </Reveal>
     </div>
   </section>
 
   <!-- Skills -->
-  <section class="mx-auto max-w-5xl px-6 py-16">
+  <Reveal class="mx-auto max-w-5xl px-6 py-16">
     <SectionHeading title="Toolbox" subtitle="Technologies I reach for regularly." />
     <div class="grid gap-8 sm:grid-cols-2">
       {
-        skillGroups.map(({ title, items }) => (
-          <div>
-            <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-ruby/80">{title}</h3>
-            <div class="flex flex-wrap gap-2">
-              {items.map((skill) => (
-                <TechBadge name={skill} size="sm" />
-              ))}
+        skillGroups.map(({ title, items }, i) => (
+          <Reveal delay={i * 100}>
+            <div>
+              <h3 class="mb-4 text-sm font-semibold uppercase tracking-wider text-ruby/80">{title}</h3>
+              <div class="flex flex-wrap gap-2">
+                {items.map((skill) => (
+                  <TechBadge name={skill} size="sm" />
+                ))}
+              </div>
             </div>
-          </div>
+          </Reveal>
         ))
       }
     </div>
-  </section>
+  </Reveal>
 
   <!-- Recent experience -->
   <section class="border-t border-border/60 bg-surface-raised/30">
     <div class="mx-auto max-w-5xl px-6 py-16">
-      <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <Reveal class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 class="font-serif text-2xl font-semibold tracking-tight text-white sm:text-3xl">Experience</h2>
           <p class="mt-2 max-w-2xl text-muted">Ten years across product companies and research labs.</p>
           <div class="mt-4 h-px w-12 bg-gradient-to-r from-ruby to-transparent" aria-hidden="true"></div>
         </div>
-        <a href="/experience" class="shrink-0 text-sm font-medium text-ruby transition hover:text-accent-hover">
-          Full timeline →
+        <a href="/experience" class="link-arrow shrink-0 text-sm font-medium text-ruby transition hover:text-accent-hover">
+          Full timeline <span aria-hidden="true">→</span>
         </a>
-      </div>
+      </Reveal>
       <div class="space-y-4">
         {
           recentExperience.map((job, i) => (
-            <ExperienceCard {...job} featured={i === 0} />
+            <Reveal delay={i * 90}>
+              <ExperienceCard {...job} featured={i === 0} />
+            </Reveal>
           ))
         }
       </div>
@@ -178,29 +189,29 @@ const recentExperience = experience.slice(0, 3);
   </section>
 
   <!-- Education & awards -->
-  <section class="mx-auto max-w-5xl px-6 py-16">
+  <div class="mx-auto max-w-5xl px-6 py-16">
     <div class="grid gap-10 sm:grid-cols-2">
-      <div>
+      <Reveal>
         <SectionHeading title="Education" />
-        <div class="rounded-2xl border border-border bg-surface-card p-6">
+        <div class="hover-lift rounded-2xl border border-border bg-surface-card p-6">
           <h3 class="font-semibold text-white">{education.degree}</h3>
           <p class="mt-1 text-sm text-muted">{education.school}</p>
           <p class="mt-2 text-sm text-ruby">{education.period}</p>
         </div>
-      </div>
-      <div>
+      </Reveal>
+      <Reveal delay={120}>
         <SectionHeading title="Achievements" />
         <ul class="space-y-3">
           {
             achievements.map((item) => (
-              <li class="flex gap-3 rounded-2xl border border-border bg-surface-card p-4 text-sm leading-relaxed text-muted">
-                <RubyGem size={16} class="mt-0.5 shrink-0" />
+              <li class="hover-lift flex gap-3 rounded-2xl border border-border bg-surface-card p-4 text-sm leading-relaxed text-muted">
+                <RubyGem size={16} class="mt-0.5 shrink-0 gem-pulse" />
                 {item}
               </li>
             ))
           }
         </ul>
-      </div>
+      </Reveal>
     </div>
-  </section>
+  </div>
 </BaseLayout>

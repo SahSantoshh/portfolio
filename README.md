@@ -1,46 +1,55 @@
-# Astro Starter Kit: Basics
+# Santosh Prasad Sah — Portfolio
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Personal portfolio site for **Santosh Prasad Sah**, a Senior Ruby on Rails Engineer based in Kathmandu, Nepal.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Ten years building production web applications — Rails backends, PostgreSQL, Hotwire, Docker, Kamal, and mobile with Flutter.
 
-## 🚀 Project Structure
+## Links
 
-Inside of your Astro project, you'll see the following folders and files:
+- **Portfolio:** *(deploy URL — e.g. your domain or `*.pages.dev`)*
+- **Email:** [sahsantoshh@gmail.com](mailto:sahsantoshh@gmail.com)
+- **GitHub:** [github.com/SahSantoshh](https://github.com/SahSantoshh)
+- **LinkedIn:** [linkedin.com/in/sahsantoshh](https://linkedin.com/in/sahsantoshh)
+- **Medium:** [medium.com/@sahsantoshh](https://medium.com/@sahsantoshh)
+
+## Featured project
+
+**[Kharcha Diary](https://kharchadiary.com/)** — personal finance tracker (Rails + Flutter) for web and Android. Multi-currency expenses, bill splitting, recurring payments, and lend & borrow tracking.
+
+## Tech stack
+
+Built with [Astro](https://astro.build), [Tailwind CSS](https://tailwindcss.com), and TypeScript. Static output, deployed on Cloudflare Pages.
+
+| Command        | Action                              |
+| -------------- | ----------------------------------- |
+| `pnpm install` | Install dependencies              |
+| `pnpm dev`     | Dev server at http://localhost:4321 |
+| `pnpm build`   | Production build → `dist/`          |
+| `pnpm preview` | Preview production build locally    |
+
+**Requirements:** Node.js 22+ (see `.tool-versions`)
+
+## Project structure
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+  data/site.ts       # Content: bio, experience, projects, skills
+  components/        # UI components
+  layouts/           # Page layouts
+  pages/             # Routes (/, /projects, /experience, /contact)
+public/              # Static assets + CV PDF
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Edit `src/data/site.ts` to update copy, experience, or projects.
 
-## 🧞 Commands
+## Deploy (Cloudflare Pages)
 
-All commands are run from the root of the project, from a terminal:
+- **Build command:** `pnpm run build`
+- **Output directory:** `dist`
+- **Node version:** 22 or higher
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+Push to GitHub — Cloudflare rebuilds on every commit to `main`.
 
-## 👀 Want to learn more?
+## License
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Personal portfolio — all rights reserved.

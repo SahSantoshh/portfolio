@@ -51,4 +51,228 @@ body {
     transparent
   );
   height: 2px;
+  animation: track-shimmer 3s ease-in-out infinite;
 }
+
+/* ── Keyframes ── */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gem-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(2deg);
+  }
+}
+
+@keyframes gem-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 20px rgba(204, 52, 45, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 36px rgba(204, 52, 45, 0.55));
+  }
+}
+
+@keyframes track-shimmer {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes link-arrow {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+}
+
+/* ── Hero entrance (page load) ── */
+
+.hero-stagger > .hero-item {
+  opacity: 0;
+  animation: fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-stagger > .hero-item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.hero-stagger > .hero-item:nth-child(2) {
+  animation-delay: 0.12s;
+}
+.hero-stagger > .hero-item:nth-child(3) {
+  animation-delay: 0.19s;
+}
+.hero-stagger > .hero-item:nth-child(4) {
+  animation-delay: 0.26s;
+}
+.hero-stagger > .hero-item:nth-child(5) {
+  animation-delay: 0.33s;
+}
+.hero-stagger > .hero-item:nth-child(6) {
+  animation-delay: 0.4s;
+}
+.hero-stagger > .hero-item:nth-child(7) {
+  animation-delay: 0.47s;
+}
+.hero-stagger > .hero-item:nth-child(8) {
+  animation-delay: 0.54s;
+}
+
+.gem-float {
+  animation: gem-float 5s ease-in-out infinite;
+}
+
+.gem-pulse {
+  animation: gem-pulse 4s ease-in-out infinite;
+}
+
+/* ── Scroll reveal ── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Interactive hovers ── */
+
+.hover-lift {
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(204, 52, 45, 0.08);
+}
+
+.btn-primary {
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(204, 52, 45, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.link-arrow:hover span,
+.link-arrow:focus-visible span {
+  animation: link-arrow 0.6s ease-in-out infinite;
+}
+
+.nav-link {
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nav-link:hover {
+  transform: translateY(-1px);
+}
+
+/* ── Astro view transitions ── */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(root) {
+  animation-name: fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: fade-in;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* ── Reduced motion ── */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-stagger > .hero-item {
+    opacity: 1;
+    animation: none;
+  }
+
+  .hover-lift:hover,
+  .btn-primary:hover,
+  .nav-link:hover {
+    transform: none;
+  }
+}
+
