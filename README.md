@@ -46,7 +46,11 @@ Edit `src/data/site.ts` to update copy, experience, or projects.
 
 - **Build command:** `pnpm run build`
 - **Output directory:** `dist`
-- **Node version:** 22 or higher
+- **Node version:** `22` (matches `.tool-versions` — Cloudflare supports 22.16.0, not 26.x)
+
+Optional environment variable in Cloudflare Pages → Settings → Environment variables:
+
+- `NODE_VERSION` = `22`
 
 Push to GitHub — Cloudflare rebuilds on every commit to `main`.
 
