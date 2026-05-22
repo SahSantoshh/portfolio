@@ -1,0 +1,55 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  size?: "sm" | "md" | "lg" | "hero";
+  class?: string;
+}
+
+const { src, alt, size = "md", class: className } = Astro.props;
+
+const sizes = {
+  sm: "h-24 w-24",
+  md: "h-40 w-40",
+  lg: "h-56 w-56",
+  hero: "h-72 w-72 xl:h-80 xl:w-80",
+};
+---
+
+<div class:list={["profile-photo-wrap", className]}>
+  <div class:list={["profile-photo-ring", sizes[size]]}>
+    <img
+      src={src}
+      alt={alt}
+      width={400}
+      height={400}
+      class="h-full w-full object-cover"
+      loading={size === "hero" ? "eager" : "lazy"}
+      decoding="async"
+    />
+  </div>
+</div>
+
+<style>
+  .profile-photo-ring {
+    position: relative;
+    border-radius: 1.25rem;
+    padding: 3px;
+    background: linear-gradient(135deg, #cc342d, #d30001 45%, #8b1e1e);
+    box-shadow:
+      0 0 0 1px rgba(204, 52, 45, 0.2),
+      0 20px 40px rgba(204, 52, 45, 0.15);
+    overflow: hidden;
+  }
+
+  .profile-photo-ring img {
+    border-radius: calc(1.25rem - 3px);
+  }
+
+  .profile-photo-wrap:hover .profile-photo-ring {
+    box-shadow:
+      0 0 0 1px rgba(204, 52, 45, 0.35),
+      0 24px 48px rgba(204, 52, 45, 0.22);
+    transition: box-shadow 0.3s ease;
+  }
+</style>

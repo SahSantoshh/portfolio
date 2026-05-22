@@ -9,6 +9,10 @@ export const site = {
   summary:
     "Senior Software Engineer with a decade of Ruby and Rails experience designing, building, and scaling web applications. I specialize in Rails backends, PostgreSQL performance, system optimization, and shipping reliable software with RSpec, Docker, and Kamal — while leading teams and collaborating closely with stakeholders.",
   resumeUrl: "/Santosh-Prasad-Sah-CV.pdf",
+  photos: {
+    profile: "/images/santosh-profile.jpg",
+    travel: "/images/santosh-travel.jpg",
+  },
   primaryStack: ["Ruby", "Ruby on Rails", "PostgreSQL", "Hotwire", "Docker", "Kamal", "RSpec"],
   social: {
     github: "https://github.com/SahSantoshh",

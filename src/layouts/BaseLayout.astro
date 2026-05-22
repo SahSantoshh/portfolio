@@ -25,6 +25,7 @@ const pageTitle = title === site.name ? `${site.name} — ${site.title}` : `${ti
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="author" content={site.name} />
+    <meta property="og:image" content={new URL(site.photos.profile, Astro.site ?? "https://example.com").href} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

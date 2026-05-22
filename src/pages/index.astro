@@ -4,6 +4,7 @@ import SectionHeading from "../components/SectionHeading.astro";
 import ExperienceCard from "../components/ExperienceCard.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import TechBadge from "../components/TechBadge.astro";
+import ProfilePhoto from "../components/ProfilePhoto.astro";
 import RubyGem from "../components/RubyGem.astro";
 import Reveal from "../components/Reveal.astro";
 import {
@@ -23,56 +24,69 @@ const recentExperience = experience.slice(0, 3);
   <!-- Hero -->
   <section class="relative overflow-hidden border-b border-border/60">
     <div
-      class="pointer-events-none absolute -right-16 top-8 hidden opacity-40 lg:block"
+      class="pointer-events-none absolute -left-24 top-1/2 hidden -translate-y-1/2 opacity-20 lg:block"
       aria-hidden="true"
     >
-      <RubyGem size={280} class="gem-glow gem-float gem-pulse" />
+      <RubyGem size={200} class="gem-glow gem-float" />
     </div>
-    <div class="hero-stagger relative mx-auto max-w-5xl px-6 py-20 sm:py-28">
-      <p class="hero-item mb-5 inline-flex items-center gap-2 rounded-full border border-ruby/25 bg-ruby/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-cream">
-        <RubyGem size={14} class="gem-pulse" />
-        Ruby · Rails · PostgreSQL
-      </p>
-      <h1 class="hero-item font-serif max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-        {site.name}
-      </h1>
-      <p class="hero-item mt-4 text-xl font-semibold text-ruby sm:text-2xl">{site.title}</p>
-      <p class="hero-item mt-6 max-w-2xl text-lg leading-relaxed text-muted">{site.tagline}</p>
+    <div class="relative mx-auto max-w-5xl px-6 py-16 sm:py-20 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-16">
+        <div class="hero-stagger order-2 lg:order-1">
+          <p class="hero-item mb-5 inline-flex items-center gap-2 rounded-full border border-ruby/25 bg-ruby/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-cream">
+            <RubyGem size={14} class="gem-pulse" />
+            Ruby · Rails · PostgreSQL
+          </p>
+          <h1 class="hero-item font-serif max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            {site.name}
+          </h1>
+          <p class="hero-item mt-4 text-xl font-semibold text-ruby sm:text-2xl">{site.title}</p>
+          <p class="hero-item mt-6 max-w-2xl text-lg leading-relaxed text-muted">{site.tagline}</p>
 
-      <div class="hero-item mt-8">
-        <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-muted">Primary stack</p>
-        <div class="flex flex-wrap gap-2">
-          {site.primaryStack.map((tech) => (
-            <TechBadge name={tech} size="md" />
-          ))}
+          <div class="hero-item mt-8">
+            <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-muted">Primary stack</p>
+            <div class="flex flex-wrap gap-2">
+              {site.primaryStack.map((tech) => (
+                <TechBadge name={tech} size="md" />
+              ))}
+            </div>
+          </div>
+
+          <div class="hero-item mt-8 flex flex-wrap items-center gap-3">
+            <a
+              href={site.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-primary inline-flex items-center rounded-xl bg-ruby px-5 py-2.5 text-sm font-semibold text-white hover:bg-accent-hover"
+            >
+              Download CV
+            </a>
+            <a
+              href="/projects"
+              class="btn-primary inline-flex items-center rounded-xl border border-border bg-surface-raised px-5 py-2.5 text-sm font-semibold text-white hover:border-ruby/30"
+            >
+              View projects
+            </a>
+            <a
+              href={site.social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link-arrow inline-flex items-center rounded-xl px-5 py-2.5 text-sm font-medium text-muted transition hover:text-ruby"
+            >
+              GitHub <span aria-hidden="true">→</span>
+            </a>
+          </div>
+          <p class="hero-item mt-8 text-sm text-muted">{site.location}</p>
+        </div>
+
+        <div class="hero-item order-1 flex justify-center lg:order-2 lg:justify-end">
+          <ProfilePhoto
+            src={site.photos.profile}
+            alt={`${site.name} — Ruby on Rails engineer`}
+            size="hero"
+            class="hero-photo"
+          />
         </div>
       </div>
-
-      <div class="hero-item mt-8 flex flex-wrap items-center gap-3">
-        <a
-          href={site.resumeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-primary inline-flex items-center rounded-xl bg-ruby px-5 py-2.5 text-sm font-semibold text-white hover:bg-accent-hover"
-        >
-          Download CV
-        </a>
-        <a
-          href="/projects"
-          class="btn-primary inline-flex items-center rounded-xl border border-border bg-surface-raised px-5 py-2.5 text-sm font-semibold text-white hover:border-ruby/30"
-        >
-          View projects
-        </a>
-        <a
-          href={site.social.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="link-arrow inline-flex items-center rounded-xl px-5 py-2.5 text-sm font-medium text-muted transition hover:text-ruby"
-        >
-          GitHub <span aria-hidden="true">→</span>
-        </a>
-      </div>
-      <p class="hero-item mt-8 text-sm text-muted">{site.location}</p>
     </div>
     <div class="rails-track mx-auto max-w-5xl px-6" aria-hidden="true"></div>
   </section>
@@ -80,7 +94,15 @@ const recentExperience = experience.slice(0, 3);
   <!-- About -->
   <Reveal class="mx-auto max-w-5xl px-6 py-16">
     <SectionHeading title="About" subtitle="A decade in the Ruby ecosystem — shipping production Rails apps." />
-    <p class="max-w-3xl text-base leading-relaxed text-muted">{site.summary}</p>
+    <div class="grid items-start gap-10 lg:grid-cols-[1fr_280px]">
+      <p class="max-w-3xl text-base leading-relaxed text-muted">{site.summary}</p>
+      <Reveal delay={80}>
+        <figure>
+          <ProfilePhoto src={site.photos.travel} alt={`${site.name} — International Olympiad in Linguistics`} size="lg" class="mx-auto lg:mx-0" />
+          <figcaption class="mt-2 text-center text-xs text-muted lg:text-left">IOL 2025 · Taiwan</figcaption>
+        </figure>
+      </Reveal>
+    </div>
   </Reveal>
 
   <!-- Focus -->
