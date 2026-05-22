@@ -44,13 +44,18 @@ Edit `src/data/site.ts` to update copy, experience, or projects.
 
 ## Deploy (Cloudflare Pages)
 
-- **Build command:** `pnpm run build`
-- **Output directory:** `dist`
-- **Node version:** `22` (matches `.tool-versions` — Cloudflare supports 22.16.0, not 26.x)
+**Build settings** (Cloudflare dashboard → Settings → Build):
 
-Optional environment variable in Cloudflare Pages → Settings → Environment variables:
+| Setting | Value |
+|---------|--------|
+| Build command | `pnpm run build` |
+| Deploy command | `pnpm run deploy` |
+| Path | `/` |
 
-- `NODE_VERSION` = `22`
+This project is a **static** Astro site. `wrangler.jsonc` tells Wrangler to publish the `dist/` folder — no Cloudflare adapter or SSR needed.
+
+- **Node version:** `22` (matches `.tool-versions`)
+- Optional env var: `NODE_VERSION` = `22`
 
 Push to GitHub — Cloudflare rebuilds on every commit to `main`.
 
