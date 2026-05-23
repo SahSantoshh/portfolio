@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Block non-content paths if added later
+Disallow: /api/
+
+Sitemap: https://sahsantoshh.com/sitemap-index.xml

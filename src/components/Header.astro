@@ -1,23 +1,22 @@
 ---
 import { nav, site } from "../data/site";
 import RubyGem from "./RubyGem.astro";
-import TechBadge from "./TechBadge.astro";
 
 const currentPath = Astro.url.pathname;
 ---
 
 <header class="sticky top-0 z-50 border-b border-border/60 bg-surface/85 backdrop-blur-md">
-  <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-    <a href="/" class="group flex items-center gap-2.5">
-      <RubyGem size={28} class="gem-glow gem-pulse transition duration-300 group-hover:scale-110" />
-      <span class="hidden flex-col sm:flex">
-        <span class="text-sm font-semibold tracking-tight text-white">{site.name}</span>
+  <div class="page-container flex items-center justify-between py-3 sm:py-4">
+    <a href="/" class="group flex min-w-0 items-center gap-2 sm:gap-2.5">
+      <RubyGem size={28} class="gem-glow gem-pulse shrink-0 transition duration-300 group-hover:scale-110" />
+      <span class="hidden min-w-0 flex-col sm:flex">
+        <span class="truncate text-sm font-semibold tracking-tight text-white">{site.name}</span>
         <span class="text-xs text-ruby">Ruby on Rails</span>
       </span>
     </a>
 
-    <nav aria-label="Main navigation">
-      <ul class="flex items-center gap-1">
+    <nav aria-label="Main navigation" class="hidden lg:block">
+      <ul class="flex items-center gap-0.5 xl:gap-1">
         {
           nav.map(({ href, label }) => {
             const isActive =
@@ -29,7 +28,7 @@ const currentPath = Astro.url.pathname;
                 <a
                   href={href}
                   class:list={[
-                    "nav-link rounded-lg px-3 py-2 text-sm font-medium",
+                    "nav-link rounded-lg px-2 py-2 text-xs font-medium xl:px-3 xl:text-sm",
                     isActive
                       ? "bg-ruby/15 text-white ring-1 ring-ruby/25"
                       : "text-muted hover:bg-surface-raised hover:text-white",
@@ -44,5 +43,111 @@ const currentPath = Astro.url.pathname;
         }
       </ul>
     </nav>
+
+    <button
+      type="button"
+      class="mobile-nav-toggle inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-raised text-white transition hover:border-ruby/30 lg:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-nav-menu"
+      aria-label="Open menu"
+      data-nav-toggle
+    >
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" />
+      </svg>
+    </button>
   </div>
+
+  <div class="mobile-nav-backdrop lg:hidden" data-nav-backdrop aria-hidden="true"></div>
+
+  <nav
+    id="mobile-nav-menu"
+    aria-label="Mobile navigation"
+    class="mobile-nav-menu lg:hidden"
+    data-nav-menu
+  >
+    <ul class="page-container pb-4 pt-2 sm:pb-6">
+      {
+        nav.map(({ href, label }) => {
+          const isActive =
+            href === "/"
+              ? currentPath === "/"
+              : currentPath.startsWith(href);
+          return (
+            <li>
+              <a
+                href={href}
+                class:list={[
+                  "mobile-nav-link block min-h-11 rounded-xl px-4 py-3 text-base font-medium",
+                  isActive
+                    ? "bg-ruby/15 text-white ring-1 ring-ruby/25"
+                    : "text-muted hover:bg-surface-raised hover:text-white",
+                ]}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
 </header>
+
+<style>
+  .mobile-nav-backdrop {
+    position: fixed;
+    inset: 0;
+    top: 3.75rem;
+    z-index: 40;
+    background: rgba(12, 9, 10, 0.72);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  @media (min-width: 640px) {
+    .mobile-nav-backdrop {
+      top: 4.5rem;
+    }
+  }
+
+  .mobile-nav-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-nav-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 50;
+    max-height: 0;
+    overflow: hidden;
+    border-bottom: 1px solid transparent;
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+    backdrop-filter: blur(12px);
+    transition:
+      max-height 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  .mobile-nav-menu.is-open {
+    max-height: min(32rem, calc(100dvh - 4.5rem));
+    overflow-y: auto;
+    border-bottom-color: color-mix(in srgb, var(--color-border) 60%, transparent);
+  }
+
+  :global(body.nav-open) {
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-nav-backdrop,
+    .mobile-nav-menu {
+      transition: none;
+    }
+  }
+</style>

@@ -6,17 +6,17 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="border-t border-border/60 bg-surface-raised/50">
-  <div class="mx-auto max-w-5xl px-6 py-8">
+  <div class="mx-auto max-w-5xl px-4 py-8 sm:px-6">
     <div class="mb-6 flex flex-wrap justify-center gap-2">
       <TechBadge name="Ruby" size="sm" />
       <TechBadge name="Ruby on Rails" size="sm" />
       <TechBadge name="PostgreSQL" size="sm" />
     </div>
     <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
-      <p class="text-sm text-muted">
+      <p class="text-center text-sm text-muted sm:text-left">
         © {year} {site.name}. Rails developer, shipped with care.
       </p>
-      <div class="flex items-center gap-4 text-sm">
+      <div class="flex flex-wrap items-center justify-center gap-4 text-sm sm:justify-end">
         <a
           href={site.social.github}
           target="_blank"

@@ -2,11 +2,11 @@
 
 Personal portfolio site for **Santosh Prasad Sah**, a Senior Ruby on Rails Engineer based in Kathmandu, Nepal.
 
-Ten years building production web applications — Rails backends, PostgreSQL, Hotwire, Docker, Kamal, and mobile with Flutter.
+A decade building production web applications — Rails backends, PostgreSQL, Hotwire, Docker, Kamal, and mobile with Flutter.
 
 ## Links
 
-- **Portfolio:** *(deploy URL — e.g. your domain or `*.pages.dev`)*
+- **Portfolio:** [sahsantoshh.com](https://sahsantoshh.com)
 - **Email:** [sahsantoshh@gmail.com](mailto:sahsantoshh@gmail.com)
 - **GitHub:** [github.com/SahSantoshh](https://github.com/SahSantoshh)
 - **LinkedIn:** [linkedin.com/in/sahsantoshh](https://linkedin.com/in/sahsantoshh)
@@ -33,14 +33,31 @@ Built with [Astro](https://astro.build), [Tailwind CSS](https://tailwindcss.com)
 
 ```text
 src/
-  data/site.ts       # Content: bio, experience, projects, skills
+  content/blog/      # Blog posts (Markdown)
+  data/site.ts       # Content: bio, experience, projects, open source, skills
   components/        # UI components
   layouts/           # Page layouts
-  pages/             # Routes (/, /projects, /experience, /contact)
+  pages/             # Routes (/, /projects, /open-source, /blog, /experience, /contact)
+functions/
+  api/contact.ts     # Contact form API (Cloudflare Pages Function)
 public/              # Static assets + CV PDF
 ```
 
-Edit `src/data/site.ts` to update copy, experience, or projects.
+Edit `src/data/site.ts` to update copy, experience, projects, or open source repos. Add blog posts under `src/content/blog/`.
+
+## Contact form (Resend)
+
+The contact form posts to `/api/contact`, handled by a Cloudflare Pages Function.
+
+Set these **secrets** in Cloudflare Pages → Settings → Environment variables:
+
+| Variable | Description |
+|----------|-------------|
+| `RESEND_API_KEY` | API key from [Resend](https://resend.com) |
+| `CONTACT_TO_EMAIL` | Inbox for form submissions (default: `sahsantoshh@gmail.com`) |
+| `RESEND_FROM_EMAIL` | Verified sender, e.g. `Portfolio <onboarding@resend.dev>` |
+
+Optional: `PUBLIC_CF_ANALYTICS_TOKEN` for Cloudflare Web Analytics (see `.env.example`).
 
 ## Deploy (Cloudflare Pages)
 
@@ -52,7 +69,7 @@ Edit `src/data/site.ts` to update copy, experience, or projects.
 | Deploy command | `pnpm run deploy` |
 | Path | `/` |
 
-This project is a **static** Astro site. `wrangler.jsonc` tells Wrangler to publish the `dist/` folder — no Cloudflare adapter or SSR needed.
+Static Astro build output goes to `dist/`. The `functions/` folder provides the contact form API on Pages — no Astro SSR adapter needed.
 
 - **Node version:** `22` (matches `.tool-versions`)
 - Optional env var: `NODE_VERSION` = `22`

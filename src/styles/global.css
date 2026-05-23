@@ -17,6 +17,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -24,10 +25,57 @@ body {
   background-color: var(--color-surface);
   color: #f8f0f2;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
   background-image:
     radial-gradient(ellipse 80% 50% at 50% -20%, rgba(204, 52, 45, 0.15), transparent),
     radial-gradient(ellipse 60% 40% at 100% 0%, rgba(211, 0, 1, 0.08), transparent);
   background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.page-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 64rem;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .page-container {
+    padding-inline: 1.5rem;
+  }
+}
+
+.page-section {
+  padding-block: 3rem;
+}
+
+@media (min-width: 640px) {
+  .page-section {
+    padding-block: 4rem;
+  }
+}
+
+.page-section-tight {
+  padding-block: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .page-section-tight {
+    padding-block: 3rem;
+  }
 }
 
 ::selection {
@@ -277,6 +325,23 @@ body {
   .btn-primary:hover,
   .nav-link:hover {
     transform: none;
+  }
+}
+
+/* ── Responsive typography & touch targets ── */
+
+@media (max-width: 639px) {
+  .btn-primary {
+    min-height: 2.75rem;
+  }
+}
+
+@media (hover: none) {
+  .hover-lift:hover,
+  .btn-primary:hover,
+  .nav-link:hover {
+    transform: none;
+    box-shadow: none;
   }
 }
 

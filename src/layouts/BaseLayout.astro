@@ -4,18 +4,75 @@ import { ClientRouter } from "astro:transitions";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../data/site";
+import {
+  absoluteUrl,
+  buildSchemaGraph,
+  pageCanonical,
+  pageTitle,
+  SITE_URL,
+} from "../lib/seo";
+
+interface ArticleMeta {
+  publishedTime: string;
+  modifiedTime?: string;
+  tags?: string[];
+}
 
 interface Props {
   title?: string;
   description?: string;
+  canonical?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: "website" | "article" | "profile";
+  pageType?: "WebPage" | "ProfilePage" | "CollectionPage" | "ContactPage";
+  noindex?: boolean;
+  article?: ArticleMeta;
 }
 
 const {
   title = site.name,
   description = site.summary,
+  canonical,
+  image,
+  imageAlt,
+  type = "website",
+  pageType = Astro.url.pathname === "/" ? "ProfilePage" : "WebPage",
+  noindex = false,
+  article,
 } = Astro.props;
 
-const pageTitle = title === site.name ? `${site.name} — ${site.title}` : `${title} — ${site.name}`;
+const resolvedTitle = pageTitle(title);
+const canonicalUrl = canonical ?? pageCanonical(Astro.url.pathname, Astro.site?.href ?? SITE_URL);
+const profileImage = absoluteUrl(site.photos.profile, Astro.site?.href ?? SITE_URL);
+const ogImage = image ? absoluteUrl(image, Astro.site?.href ?? SITE_URL) : profileImage;
+const ogImageAlt = imageAlt ?? `${site.name} — ${site.title}`;
+
+const schemaGraph = buildSchemaGraph({
+  pathname: Astro.url.pathname,
+  title: resolvedTitle,
+  description,
+  url: canonicalUrl,
+  profileImage,
+  pageType,
+  article: article
+    ? {
+        title,
+        description,
+        image: ogImage,
+        publishedTime: article.publishedTime,
+        modifiedTime: article.modifiedTime,
+        tags: article.tags,
+      }
+    : undefined,
+});
+
+const robotsContent = noindex
+  ? "noindex, nofollow"
+  : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+
+const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+const analyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
 ---
 
 <!doctype html>
@@ -25,8 +82,58 @@ const pageTitle = title === site.name ? `${site.name} — ${site.title}` : `${ti
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="author" content={site.name} />
-    <meta property="og:image" content={new URL(site.photos.profile, Astro.site ?? "https://example.com").href} />
+    <meta name="robots" content={robotsContent} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#cc342d" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="format-detection" content="telephone=yes" />
+
+    <title>{resolvedTitle}</title>
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:title" content={resolvedTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content={type} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    {
+      type === "article" && article ? (
+        <>
+          <meta property="article:author" content={site.name} />
+          <meta property="article:published_time" content={article.publishedTime} />
+          {article.modifiedTime ? (
+            <meta property="article:modified_time" content={article.modifiedTime} />
+          ) : null}
+          {article.tags?.map((tag) => (
+            <meta property="article:tag" content={tag} />
+          ))}
+        </>
+      ) : null
+    }
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={resolvedTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+    <meta name="twitter:creator" content="@SahSantoshh" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} — Blog`} href="/rss.xml" />
+    <link rel="author" href={site.social.medium} />
+    <link rel="me" href={site.social.github} />
+    <link rel="me" href={site.social.linkedin} />
+    <link rel="me" href={site.social.medium} />
+
+    {googleVerification ? <meta name="google-site-verification" content={googleVerification} /> : null}
+
+    <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -34,16 +141,25 @@ const pageTitle = title === site.name ? `${site.name} — ${site.title}` : `${ti
       rel="stylesheet"
     />
     <ClientRouter />
-    <title>{pageTitle}</title>
   </head>
   <body class="min-h-screen flex flex-col">
     <Header />
-    <main class="flex-1" transition:animate="fade">
+    <main class="flex-1 overflow-x-clip" transition:animate="fade">
       <slot />
     </main>
     <Footer />
     <script>
       import "../scripts/reveal.ts";
+      import "../scripts/mobile-nav.ts";
     </script>
+    {
+      analyticsToken ? (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${analyticsToken}"}`}
+        />
+      ) : null
+    }
   </body>
 </html>

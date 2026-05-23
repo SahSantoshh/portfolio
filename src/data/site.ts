@@ -2,7 +2,7 @@ export const site = {
   name: "Santosh Prasad Sah",
   title: "Senior Ruby on Rails Engineer",
   tagline:
-    "Ten years crafting production Rails applications — from APIs and background jobs to Hotwire frontends and Kamal deployments.",
+    "A decade crafting production Rails applications — from APIs and background jobs to Hotwire frontends and Kamal deployments.",
   location: "Kathmandu, Nepal",
   email: "sahsantoshh@gmail.com",
   phone: "+977 9808468833",
@@ -24,6 +24,8 @@ export const site = {
 export const nav = [
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
+  { href: "/open-source", label: "Open Source" },
+  { href: "/blog", label: "Blog" },
   { href: "/experience", label: "Experience" },
   { href: "/contact", label: "Contact" },
 ];
@@ -46,6 +48,79 @@ export const projects = [
       "Cross-device sync with 2FA and biometric authentication",
     ],
     featured: true,
+  },
+];
+
+export const openSource = [
+  {
+    name: "ror_salesforce_integration",
+    description:
+      "Starter template for Salesforce Streaming API integration with Ruby on Rails — real-time account and contact sync using Restforce.",
+    url: "https://github.com/SahSantoshh/ror_salesforce_integration",
+    language: "Ruby",
+    stars: 0,
+    topics: ["ruby", "rails", "salesforce", "restforce"],
+  },
+  {
+    name: "yaniv",
+    description:
+      "Card game implementation in Flutter — multiplayer-ready UI with game state management and smooth animations.",
+    url: "https://github.com/SahSantoshh/yaniv",
+    language: "Dart",
+    stars: 0,
+    topics: ["flutter", "dart", "game"],
+  },
+  {
+    name: "RubyLlmPoc",
+    description:
+      "Proof of concept integrating large language models with Ruby on Rails — exploring AI-assisted features in production Rails apps.",
+    url: "https://github.com/SahSantoshh/RubyLlmPoc",
+    language: "Ruby",
+    stars: 0,
+    topics: ["ruby", "rails", "llm", "ai"],
+  },
+];
+
+export const contributions = [
+  {
+    name: "avo",
+    upstream: "avo-hq/avo",
+    upstreamUrl: "https://github.com/avo-hq/avo",
+    description:
+      "Contributions to Avo — a Ruby on Rails admin framework for building internal tools and CRUD panels quickly.",
+    url: "https://github.com/SahSantoshh/avo",
+    language: "Ruby",
+    topics: ["ruby", "rails", "avo", "admin"],
+  },
+  {
+    name: "docs.avohq.io",
+    upstream: "avo-hq/docs.avohq.io",
+    upstreamUrl: "https://github.com/avo-hq/docs.avohq.io",
+    description:
+      "Documentation site for Avo — guides, API references, and examples for the Rails admin framework.",
+    url: "https://github.com/SahSantoshh/docs.avohq.io",
+    language: "Ruby",
+    topics: ["ruby", "rails", "documentation"],
+  },
+  {
+    name: "flutter_pulltorefresh",
+    upstream: "peng8350/flutter_pulltorefresh",
+    upstreamUrl: "https://github.com/peng8350/flutter_pulltorefresh",
+    description:
+      "Pull-to-refresh and load-more widget for Flutter scroll views — used in mobile apps with list-heavy UIs.",
+    url: "https://github.com/SahSantoshh/flutter_pulltorefresh",
+    language: "Flutter",
+    topics: ["flutter", "dart", "mobile"],
+  },
+  {
+    name: "colorize-text-avatar",
+    upstream: "deniscolak/colorize-text-avatar",
+    upstreamUrl: "https://github.com/deniscolak/colorize-text-avatar",
+    description:
+      "Flutter plugin for generating colorful text avatars — handy for user profiles without profile photos.",
+    url: "https://github.com/SahSantoshh/colorize-text-avatar",
+    language: "Flutter",
+    topics: ["flutter", "dart", "ui"],
   },
 ];
 
