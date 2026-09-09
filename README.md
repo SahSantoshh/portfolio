@@ -70,6 +70,7 @@ Connect the GitHub repo in Cloudflare Pages. **Do not** set a separate deploy co
 | Framework preset | None (or Astro) |
 | Build command | `pnpm install && pnpm run build` |
 | Build output directory | `dist` |
+| Deploy command | **Leave empty** |
 | Root directory | `/` |
 
 **Environment variables** (Settings → Environment variables):
