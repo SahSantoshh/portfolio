@@ -113,6 +113,12 @@ export function webPageSchema({
   url: string;
   type?: "WebPage" | "ProfilePage" | "CollectionPage" | "ContactPage" | "AboutPage";
 }) {
+  const personRef = {
+    "@id": `${SITE_URL}/#person`,
+    "@type": "Person",
+    name: site.name,
+  };
+
   return {
     "@type": type,
     "@id": `${url}#webpage`,
@@ -122,9 +128,8 @@ export function webPageSchema({
     isPartOf: {
       "@id": `${SITE_URL}/#website`,
     },
-    about: {
-      "@id": `${SITE_URL}/#person`,
-    },
+    about: personRef,
+    ...(type === "ProfilePage" ? { mainEntity: personRef } : {}),
     inLanguage: "en",
   };
 }
