@@ -61,17 +61,20 @@ Optional: `PUBLIC_CF_ANALYTICS_TOKEN` for Cloudflare Web Analytics (see `.env.ex
 
 ## Deploy (Cloudflare Pages)
 
-Connect the GitHub repo in Cloudflare Pages. **Do not** set a separate deploy command — Pages uploads `dist/` automatically after the build.
+Connect the GitHub repo in Cloudflare Pages.
 
 **Build settings** (Cloudflare dashboard → Settings → Builds):
 
 | Setting | Value |
 |---------|--------|
 | Framework preset | None (or Astro) |
-| Build command | `pnpm install && pnpm run build` |
+| Build command | `pnpm run build` |
 | Build output directory | `dist` |
-| Deploy command | **Leave empty** |
+| Deploy command | `npx wrangler pages deploy` (required if the UI won't accept empty) |
+| Version command | `npx wrangler versions upload` (preview branches only; leave if required) |
 | Root directory | `/` |
+
+Use **`wrangler pages deploy`**, not `wrangler deploy` — this is a Pages project with static output in `dist/` and Functions in `functions/`.
 
 **Environment variables** (Settings → Environment variables):
 
