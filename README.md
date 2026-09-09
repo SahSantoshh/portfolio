@@ -27,7 +27,7 @@ Built with [Astro](https://astro.build), [Tailwind CSS](https://tailwindcss.com)
 | `pnpm build`   | Production build → `dist/`          |
 | `pnpm preview` | Preview production build locally    |
 
-**Requirements:** Node.js 22+ (see `.tool-versions`)
+**Requirements:** Node.js 24+ (see `.tool-versions`)
 
 ## Project structure
 
@@ -76,7 +76,7 @@ Connect the GitHub repo in Cloudflare Pages. **Do not** set a separate deploy co
 
 | Variable | Type | Value |
 |----------|------|--------|
-| `NODE_VERSION` | Plain text | `22` |
+| `NODE_VERSION` | Plain text | `24` |
 | `RESEND_API_KEY` | Secret | Resend API key (contact form) |
 | `CONTACT_TO_EMAIL` | Plain text | `sahsantoshh@gmail.com` |
 | `RESEND_FROM_EMAIL` | Plain text | `Portfolio <onboarding@resend.dev>` |
