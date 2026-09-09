@@ -61,18 +61,31 @@ Optional: `PUBLIC_CF_ANALYTICS_TOKEN` for Cloudflare Web Analytics (see `.env.ex
 
 ## Deploy (Cloudflare Pages)
 
-**Build settings** (Cloudflare dashboard → Settings → Build):
+Connect the GitHub repo in Cloudflare Pages. **Do not** set a separate deploy command — Pages uploads `dist/` automatically after the build.
+
+**Build settings** (Cloudflare dashboard → Settings → Builds):
 
 | Setting | Value |
 |---------|--------|
-| Build command | `pnpm run build` |
-| Deploy command | `pnpm run deploy` |
-| Path | `/` |
+| Framework preset | None (or Astro) |
+| Build command | `pnpm install && pnpm run build` |
+| Build output directory | `dist` |
+| Root directory | `/` |
 
-Static Astro build output goes to `dist/`. The `functions/` folder provides the contact form API on Pages — no Astro SSR adapter needed.
+**Environment variables** (Settings → Environment variables):
 
-- **Node version:** `22` (matches `.tool-versions`)
-- Optional env var: `NODE_VERSION` = `22`
+| Variable | Type | Value |
+|----------|------|--------|
+| `NODE_VERSION` | Plain text | `22` |
+| `RESEND_API_KEY` | Secret | Resend API key (contact form) |
+| `CONTACT_TO_EMAIL` | Plain text | `sahsantoshh@gmail.com` |
+| `RESEND_FROM_EMAIL` | Plain text | `Portfolio <onboarding@resend.dev>` |
+| `PUBLIC_GOOGLE_SITE_VERIFICATION` | Plain text | optional |
+| `PUBLIC_CF_ANALYTICS_TOKEN` | Plain text | optional |
+
+The `functions/` folder is picked up automatically for `/api/contact`.
+
+**Manual deploy from your machine** (optional): `pnpm run deploy` (requires `CLOUDFLARE_API_TOKEN`).
 
 Push to GitHub — Cloudflare rebuilds on every commit to `main`.
 

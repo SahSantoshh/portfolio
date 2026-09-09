@@ -53,6 +53,16 @@ export const projects = [
 
 export const openSource = [
   {
+    name: "access_grant",
+    description:
+      "Dynamic, database-backed, per-tenant roles and permissions for Rails — permission catalog in code, role mapping editable at runtime. Published on RubyGems.",
+    url: "https://github.com/SahSantoshh/access_grant",
+    gemUrl: "https://rubygems.org/gems/access_grant",
+    language: "Ruby",
+    stars: 0,
+    topics: ["rails", "authorization", "rbac", "multi-tenant"],
+  },
+  {
     name: "ror_salesforce_integration",
     description:
       "Starter template for Salesforce Streaming API integration with Ruby on Rails — real-time account and contact sync using Restforce.",

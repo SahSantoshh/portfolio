@@ -11,6 +11,7 @@ interface Props {
   kind?: "project" | "contribution";
   upstream?: string;
   upstreamUrl?: string;
+  gemUrl?: string;
 }
 
 const {
@@ -23,9 +24,10 @@ const {
   kind = "project",
   upstream,
   upstreamUrl,
+  gemUrl,
 } = Astro.props;
 
-const label = kind === "contribution" ? "Contribution" : "Open source";
+const label = kind === "contribution" ? "Contribution" : gemUrl ? "RubyGem" : "Open source";
 ---
 
 <article class="hover-lift group flex h-full flex-col rounded-2xl border border-border bg-surface-card p-5 hover:border-ruby/25 hover:bg-surface-raised sm:p-6">
@@ -67,7 +69,7 @@ const label = kind === "contribution" ? "Contribution" : "Open source";
     }
   </div>
 
-  <div class="mt-6 border-t border-border/60 pt-5">
+  <div class="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-border/60 pt-5">
     <a
       href={url}
       target="_blank"
@@ -76,5 +78,17 @@ const label = kind === "contribution" ? "Contribution" : "Open source";
     >
       View on GitHub <span aria-hidden="true">→</span>
     </a>
+    {
+      gemUrl && (
+        <a
+          href={gemUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="link-arrow inline-flex items-center text-sm font-semibold text-ruby transition hover:text-accent-hover"
+        >
+          RubyGems <span aria-hidden="true">→</span>
+        </a>
+      )
+    }
   </div>
 </article>
