@@ -74,8 +74,10 @@ export const openSource = [
   {
     name: "yaniv",
     description:
-      "Card game implementation in Flutter — multiplayer-ready UI with game state management and smooth animations.",
+      "Yaniv Score Tracker — Flutter scorekeeping for the Yaniv card game, with local history, QR game sharing, and smooth animations.",
     url: "https://github.com/SahSantoshh/yaniv",
+    icon: "/projects/yaniv/app_icon.png",
+    privacyUrl: "/legal/yaniv/privacy/",
     language: "Dart",
     stars: 0,
     topics: ["flutter", "dart", "game"],

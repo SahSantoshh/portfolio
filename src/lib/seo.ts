@@ -8,6 +8,9 @@ const routeLabels: Record<string, string> = {
   blog: "Blog",
   experience: "Experience",
   contact: "Contact",
+  legal: "Legal",
+  yaniv: "Yaniv",
+  privacy: "Privacy Policy",
 };
 
 export function absoluteUrl(path: string, base = SITE_URL): string {
