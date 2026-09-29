@@ -72,7 +72,7 @@ export const openSource = [
     topics: ["ruby", "rails", "salesforce", "restforce"],
   },
   {
-    name: "yaniv",
+    name: "Yaniv",
     description:
       "Yaniv Score Tracker — Flutter scorekeeping for the Yaniv card game, with local history, QR game sharing, and smooth animations.",
     url: "https://github.com/SahSantoshh/yaniv",
