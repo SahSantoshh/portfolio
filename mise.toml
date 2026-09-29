@@ -1,0 +1,7 @@
+[tools]
+node = "24.18.0"
+
+[env]
+# Homebrew libvips makes sharp try a source build and fail.
+# Use the prebuilt binary instead.
+SHARP_IGNORE_GLOBAL_LIBVIPS = "1"
