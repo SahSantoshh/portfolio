@@ -35,6 +35,7 @@ export const techIcons: Record<string, TechIconEntry> = {
   Redis: { slug: "redis", color: "FF4438" },
   RSpec: { slug: "ruby", color: "CC342D" },
   Astro: { slug: "astro", color: "FF5D01" },
+  iOS: { slug: "apple", color: "FFFFFF" },
   Android: { slug: "android", color: "3DDC84" },
 };
 

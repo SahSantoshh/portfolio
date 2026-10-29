@@ -33,14 +33,15 @@ export const nav = [
 export const projects = [
   {
     name: "Kharcha Diary",
-    tagline: "Rails API + Flutter — personal finance on web & Android",
+    tagline: "Rails API + Flutter — personal finance on web, iPhone, and Android",
     description:
-      "A full-featured expense tracker I built end to end with Ruby on Rails on the backend and Flutter on mobile. Multi-currency accounts, bill splitting, recurring payments, and lend & borrow tracking — ad-free, synced across web and Android.",
+      "A full-featured expense tracker I built end to end with Ruby on Rails on the backend and Flutter on mobile. Multi-currency accounts, bill splitting, recurring payments, and lend & borrow tracking — ad-free, synced across web, iPhone, and Android.",
     url: "https://kharchadiary.com/",
+    appStoreUrl: "https://apps.apple.com/us/app/kharcha-diary-track-expenses/id6806567697",
     playStoreUrl: "https://play.google.com/store/apps/details?id=com.sahsantoshh.kharchha",
     icon: "/projects/kharcha-diary/app_icon_transparent.png",
     playStoreIcon: "/projects/kharcha-diary/google-play.svg",
-    stack: ["Ruby on Rails", "Flutter", "PostgreSQL", "Hotwire", "Docker", "Android"],
+    stack: ["Ruby on Rails", "Flutter", "PostgreSQL", "Hotwire", "Docker", "iOS", "Android"],
     highlights: [
       "Multi-currency accounts with per-currency totals (NPR, USD, EUR, and more)",
       "Shared groups for bill splitting and simplified settlement plans",

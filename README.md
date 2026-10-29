@@ -14,7 +14,7 @@ A decade building production web applications — Rails backends, PostgreSQL, Ho
 
 ## Featured project
 
-**[Kharcha Diary](https://kharchadiary.com/)** — personal finance tracker (Rails + Flutter) for web and Android. Multi-currency expenses, bill splitting, recurring payments, and lend & borrow tracking.
+**[Kharcha Diary](https://kharchadiary.com/)** — personal finance tracker (Rails + Flutter) for web, iPhone, and Android. Multi-currency expenses, bill splitting, recurring payments, and lend & borrow tracking.
 
 ## Tech stack
 
